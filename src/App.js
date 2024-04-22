@@ -16,23 +16,24 @@ const App = () => {
           <ul>
             {/* Link components for navigation */}
             <li>
-              <Link to="/">
-                <Profile></Profile>
-              </Link>
+              <Link to="/login">Login</Link>
             </li>
             <li>
               <Link to="/about">About</Link>
+            </li>
+            <li>
+              <Link to="/holiday">Holiday</Link>
             </li>
             <li>
               <Link to="/contact">Contact</Link>
             </li>
           </ul>
         </nav>
-        {/* Routes */}
         <Routes>
-          <Route path="/" exact component={Profile} />
-          <Route path="/holiday" component={RequestHoliday} />
-          <Route path="/log" component={HolidayNotification} />
+          <Route path="/" element={<Profile />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/holiday" element={<RequestHoliday />} />
+          <Route path="/log" element={<HolidayNotification />} />
         </Routes>
       </div>
     </Router>
