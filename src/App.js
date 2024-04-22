@@ -1,10 +1,10 @@
 import "./App.css";
 import React from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import Login from "./pages/Login";
-import Profile from "./pages/Profile";
-import HolidayNotification from "./pages/HolidayNotification";
-import RequestHoliday from "./pages/RequestHoliday";
+import Login from "./pages/Login/Login";
+import Profile from "./pages/Profile/Profile";
+import HolidayNotification from "./pages/Holiday/HolidayNotification";
+import RequestHoliday from "./pages/Holiday/RequestHoliday";
 
 // Define your main App component
 const App = () => {
@@ -19,21 +19,21 @@ const App = () => {
               <Link to="/login">Login</Link>
             </li>
             <li>
-              <Link to="/about">About</Link>
+              <Link to="/Profile">Profile</Link>
             </li>
             <li>
               <Link to="/holiday">Holiday</Link>
             </li>
             <li>
-              <Link to="/contact">Contact</Link>
+              <Link to="/Notifications">Notifications</Link>
             </li>
           </ul>
         </nav>
         <Routes>
-          <Route path="/" element={<Profile />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<Login />} />
           <Route path="/holiday" element={<RequestHoliday />} />
-          <Route path="/log" element={<HolidayNotification />} />
+          <Route path="/notifications" element={<HolidayNotification />} />
         </Routes>
       </div>
     </Router>

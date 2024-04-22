@@ -1,0 +1,7 @@
+.wrapper {
+  text-align: center;
+  justify-content: center; /* Horizontal centering */
+  align-items: center;
+  display: flex;
+  height: 60vh;
+}
