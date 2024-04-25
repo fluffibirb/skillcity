@@ -15,7 +15,7 @@ const App = () => {
         <nav>
           <ul>
             <li>
-              <Link to="/login">Login</Link>
+              <Link to="/">Login</Link>
             </li>
             <li>
               <Link to="/profile">Profile</Link>
@@ -30,7 +30,7 @@ const App = () => {
         </nav>
         <Routes>
           <Route path="/profile" element={<Profile />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login />} />
           <Route path="/holiday" element={<RequestHoliday />} />
           <Route path="/notifications" element={<HolidayNotification />} />
         </Routes>
