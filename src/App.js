@@ -14,18 +14,17 @@ const App = () => {
         {/* Navigation */}
         <nav>
           <ul>
-            {/* Link components for navigation */}
             <li>
               <Link to="/login">Login</Link>
             </li>
             <li>
-              <Link to="/Profile">Profile</Link>
+              <Link to="/profile">Profile</Link>
             </li>
             <li>
               <Link to="/holiday">Holiday</Link>
             </li>
             <li>
-              <Link to="/Notifications">Notifications</Link>
+              <Link to="/notifications">Notifications</Link>
             </li>
           </ul>
         </nav>
