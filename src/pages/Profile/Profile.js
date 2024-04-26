@@ -1,12 +1,19 @@
 import React, { useState } from "react";
 import "./Profile.css";
 
-const validateEmail = (email) => {
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailPattern.test(email);
-};
-
 const Profile = () => {
+  const [uploadedPicture, setUploadedPicture] = useState(null);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setUploadedPicture(URL.createObjectURL(file));
+  };
+
+  const validateEmail = (email) => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+  };
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -81,73 +88,93 @@ const Profile = () => {
   };
 
   return (
-    <div className="profile-form-container">
-      <h2>Profile Form</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Name:</label>
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-          />
-          {nameError && <div className="errorLabel red">{nameError}</div>} {/* Display name error */}
-        </div>
-
-        <div className="form-group">
-          <label>Email Address:</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-          {emailError && <div className="errorLabel red">{emailError}</div>} {/* Display email error */}
-        </div>
-        <div className="form-group">
-          <label>Manager:</label>
-          <input
-            type="text"
-            name="manager"
-            value={formData.manager}
-            onChange={handleChange}
-          />
-          {managerError && <div className="errorLabel red">{managerError}</div>} {/* Display manager error */}
-        </div>
-        <div className="form-group">
-          <label>Job Title:</label>
-          <input
-            type="text"
-            name="jobTitle"
-            value={formData.jobTitle}
-            onChange={handleChange}
-          />
-          {jobTitleError && <div className="errorLabel red">{jobTitleError}</div>} {/* Display job title error */}
-        </div>
-        <div className="form-group">
-          <label>Team:</label>
-          <input
-            type="text"
-            name="team"
-            value={formData.team}
-            onChange={handleChange}
-          />
-          {teamError && <div className="errorLabel red">{teamError}</div>} {/* Display team error */}
-        </div>
-        <div className="form-group">
-          <label>Skills:</label>
-          <textarea
-            name="skills"
-            value={formData.skills}
-            onChange={handleChange}
-          />
-          {skillsError && <div className="errorLabel red">{skillsError}</div>} {/* Display skills error */}
-        </div>
-        <div class="button-container">
-          <button>Submit</button>
-        </div>
-      </form>
+    <div className="profile-container">
+  <div className="profile-picture-container">
+  <input
+    type="file"
+    accept="image/*"
+    onChange={handleImageChange}
+    style={{ display: "none" }}
+    id="fileInput" // Add id for associating with the label
+  />
+  <label htmlFor="fileInput"> {/* Add htmlFor to associate with file input */}
+    <img
+      className="profile-picture"
+      src={uploadedPicture || "https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"}
+      alt="Profile"
+    />
+  </label>
+  <div className="profile-details">
+  </div>
+</div>
+      <div className="profile-form-container">
+        <h2>Profile Form</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>Name:</label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+            />
+            {nameError && <div className="errorLabel red">{nameError}</div>} {/* Display name error */}
+          </div>
+  
+          <div className="form-group">
+            <label>Email Address:</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+            {emailError && <div className="errorLabel red">{emailError}</div>} {/* Display email error */}
+          </div>
+          <div className="form-group">
+            <label>Manager:</label>
+            <input
+              type="text"
+              name="manager"
+              value={formData.manager}
+              onChange={handleChange}
+            />
+            {managerError && <div className="errorLabel red">{managerError}</div>} {/* Display manager error */}
+          </div>
+          <div className="form-group">
+            <label>Job Title:</label>
+            <input
+              type="text"
+              name="jobTitle"
+              value={formData.jobTitle}
+              onChange={handleChange}
+            />
+            {jobTitleError && <div className="errorLabel red">{jobTitleError}</div>} {/* Display job title error */}
+          </div>
+          <div className="form-group">
+            <label>Team:</label>
+            <input
+              type="text"
+              name="team"
+              value={formData.team}
+              onChange={handleChange}
+            />
+            {teamError && <div className="errorLabel red">{teamError}</div>} {/* Display team error */}
+          </div>
+          <div className="form-group">
+            <label>Skills:</label>
+            <textarea
+              name="skills"
+              value={formData.skills}
+              onChange={handleChange}
+            />
+            {skillsError && <div className="errorLabel red">{skillsError}</div>} {/* Display skills error */}
+          </div>
+          <div className="button-container">
+            <button>Submit</button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
