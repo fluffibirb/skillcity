@@ -1,4 +1,5 @@
 import React from "react";
+import "./Holiday.css";
 
 const HolidayNotifications = ({ fromDate, toDate, reason }) => {
   return (
@@ -15,11 +16,21 @@ const HolidayNotifications = ({ fromDate, toDate, reason }) => {
                 <strong>To Date:</strong> {toDate}
               </p>
               <p>
+                <strong>Days Off:</strong>
+              </p>
+              <p>
                 <strong>Reason:</strong> {reason}
               </p>
+              <p>
+                <strong>Request Status: </strong> Pending
+              </p>
               <div className="holiday-decision">
-                <button type="submit">Accept</button>
-                <button>Reject</button>
+                <button type="submit" className="accept-button">
+                  Accept
+                </button>
+                <button type="submit" className="reject-button">
+                  Reject
+                </button>
               </div>
             </div>
           </div>
