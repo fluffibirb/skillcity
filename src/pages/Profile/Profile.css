@@ -46,7 +46,7 @@
 }
 
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 label {
@@ -69,6 +69,7 @@ textarea {
 
 button {
   padding: 10px 50px;
+  align-items: center;
   background-color: #380258;
   color: #fff;
   border: none;

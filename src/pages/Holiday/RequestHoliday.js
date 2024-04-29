@@ -1,59 +1,75 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import "./RequestHoliday.css";
-
+import { useNavigate } from "react-router-dom";
 const RequestHoliday = () => {
-  // State variables to store form data
-  const [fromDate, setFromDate] = useState(null); // Change to null
-  const [toDate, setToDate] = useState(null); // Change to null
+  const navigate = useNavigate();
+
+  const [fromDate, setFromDate] = useState(null);
+  const [toDate, setToDate] = useState(null);
   const [reason, setReason] = useState("");
 
-  // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Perform submission logic here, e.g., send data to server
     console.log("Submitted:", { fromDate, toDate, reason });
+
+    navigate(
+      `/holiday-notifications?fromDate=${fromDate}&toDate=${toDate}&reason=${reason}`
+    );
   };
 
   return (
-    <div style={{ padding: "50px 300px" }}>
-      <h2>Request Holiday</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="fromDate">From Date:</label>
-          <DatePicker
-            selected={fromDate}
-            onChange={(date) => setFromDate(date)}
-            minDate={new Date()} // Set minimum date to today
-            dateFormat="yyyy-MM-dd"
-            id="fromDate"
-            required
-          />
+    <div className="container">
+      <div className="row justify-content-center">
+        <div className="col-md-6">
+          <h2 className="p-4 pt-18 text-center">Request Holiday</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="row">
+              <div className="col-md-6 mb-3">
+                <label htmlFor="fromDate" className="form-label">
+                  <strong>From Date:</strong>
+                </label>
+                <DatePicker
+                  selected={fromDate}
+                  onChange={(date) => setFromDate(date)}
+                  minDate={new Date()}
+                  dateFormat="dd-MM-yyyy"
+                  id="fromDate"
+                  required
+                  className="form-control"
+                />
+              </div>
+              <div className="col-md-6 mb-3">
+                <label htmlFor="toDate" className="form-label">
+                  <strong>To Date: </strong>
+                </label>
+                <DatePicker
+                  selected={toDate}
+                  onChange={(date) => setToDate(date)}
+                  minDate={new Date()}
+                  dateFormat="dd-MM-yyyy"
+                  id="toDate"
+                  required
+                  className="form-control"
+                />
+              </div>
+            </div>
+            <div className="mb-3">
+              <label htmlFor="reason" className="form-label">
+                <strong>Reason: </strong>
+              </label>
+              <textarea
+                id="reason"
+                value={reason}
+                onChange={(e) => setReason(e.target.value)}
+                className="form-control"
+                rows="5"
+              ></textarea>
+            </div>
+            <button type="submit">Submit</button>
+          </form>
         </div>
-        <div>
-          <label htmlFor="toDate">To Date:</label>
-          <DatePicker
-            selected={toDate}
-            onChange={(date) => setToDate(date)}
-            minDate={new Date()} // Set minimum date to selected fromDate
-            dateFormat="yyyy-MM-dd"
-            id="toDate"
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="reason">Reason:</label>
-          <textarea
-            id="reason"
-            value={reason}
-            onChange={(e) => setReason(e.target.value)}
-            style={{ width: "100%", minHeight: "100px" }} // Apply styles here
-            required
-          ></textarea>
-        </div>
-        <button type="submit">Submit</button>
-      </form>
+      </div>
     </div>
   );
 };
