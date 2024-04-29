@@ -71,3 +71,18 @@ body{
 .me-2 {
   margin-right: .5rem!important;
 }
+
+.custom-button {
+  display: inline-flex;
+  align-items: center;
+}
+
+.round-left {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.round-right {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
