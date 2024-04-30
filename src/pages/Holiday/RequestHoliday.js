@@ -2,15 +2,49 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
+
 const RequestHoliday = () => {
   const navigate = useNavigate();
 
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
   const [reason, setReason] = useState("");
+  const [name, setName] = useState("");
+  const [manager, setManager] = useState("");
+  const [nameError, setNameError] = useState("");
+  const [managerError, setManagerError] = useState("");
+  const [dateError, setDateError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Validate name
+    if (!name.trim()) {
+      setNameError("Please enter a name");
+      return;
+    } else {
+      setNameError("");
+    }
+
+    // Validate manager
+    if (!manager.trim()) {
+      setManagerError("Please enter your Manager's name");
+      return;
+    } else {
+      setManagerError("");
+    }
+
+    // Validate dates
+    if (!fromDate || !toDate) {
+      setDateError("Please choose from date and to date");
+      return;
+    } else if (fromDate > toDate) {
+      setDateError("From date cannot be after to date");
+      return;
+    } else {
+      setDateError("");
+    }
+
     console.log("Submitted:", { fromDate, toDate, reason });
 
     navigate(
@@ -36,12 +70,28 @@ const RequestHoliday = () => {
               <label htmlFor="name">
                 <strong>Name:</strong>{" "}
               </label>
-              <input type="text" id="name" name="name" placeholder={""} />
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder={""}
+              />
+              {nameError && <p style={{ color: "red" }}>{nameError}</p>}
 
               <label htmlFor="manager">
                 <strong>Manager:</strong>{" "}
               </label>
-              <input type="text" id="name" name="name" placeholder={""} />
+              <input
+                type="text"
+                id="manager"
+                name="manager"
+                value={manager}
+                onChange={(e) => setManager(e.target.value)}
+                placeholder={""}
+              />
+              {managerError && <p style={{ color: "red" }}>{managerError}</p>}
             </div>
             <div className="row">
               <div className="col-md-6 mb-3">
@@ -54,7 +104,6 @@ const RequestHoliday = () => {
                   minDate={new Date()}
                   dateFormat="dd-MM-yyyy"
                   id="fromDate"
-                  required
                   className="form-control"
                 />
               </div>
@@ -68,10 +117,10 @@ const RequestHoliday = () => {
                   minDate={new Date()}
                   dateFormat="dd-MM-yyyy"
                   id="toDate"
-                  required
                   className="form-control"
                 />
               </div>
+              {dateError && <p style={{ color: "red" }}>{dateError}</p>}
               <div className="total-row">
                 <div>
                   <p>
