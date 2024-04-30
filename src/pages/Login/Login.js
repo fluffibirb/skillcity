@@ -16,7 +16,8 @@ const Login = (props) => {
   };
 
   const validatePassword = (password) => {
-    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const passwordPattern =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return passwordPattern.test(password);
   };
 
@@ -35,7 +36,9 @@ const Login = (props) => {
       setShowPasswordError(true);
       return;
     } else if (!validatePassword(password)) {
-      setPasswordError("Password must be at least 8 characters long and contain 1 uppercase letter, 1 lowercase letter, 1 digit, and 1 special character");
+      setPasswordError(
+        "Password must be at least 8 characters long and contain 1 uppercase letter, 1 lowercase letter, 1 digit, and 1 special character"
+      );
       setShowPasswordError(true);
       return;
     }
@@ -46,11 +49,10 @@ const Login = (props) => {
     // You'll update this function later...
   };
 
-
   return (
     <div className={"mainContainer"}>
       <div className={"titleContainer"}>
-        <div>Login</div>
+        <div>Login here</div>
       </div>
       <br />
       <div className={"inputContainer"}>
@@ -65,7 +67,7 @@ const Login = (props) => {
       <br />
       <div className={"inputContainer"}>
         <input
-        type="password"
+          type="password"
           value={password}
           placeholder="Enter your password here"
           onChange={(ev) => setPassword(ev.target.value)}
@@ -73,7 +75,8 @@ const Login = (props) => {
         />
         {showPasswordError && (
           <div className="passwordError">
-            Password must be minimum 8 characters and contain 1 uppercase letter, 1 lowercase letter, 1 digit, and 1 special character.
+            Password must be minimum 8 characters and contain 1 uppercase
+            letter, 1 lowercase letter, 1 digit, and 1 special character.
           </div>
         )}
       </div>
