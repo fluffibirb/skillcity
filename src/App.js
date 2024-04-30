@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import React from "react";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import Login from "./pages/Login/Login";
+import Profile from "./pages/Profile/Profile";
+import HolidayNotification from "./pages/Holiday/HolidayNotification";
+import RequestHoliday from "./pages/Holiday/RequestHoliday";
+import 'bootstrap/dist/css/bootstrap.min.css'
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Login</Link>
+            </li>
+            <li>
+              <Link to="/profile">Profile</Link>
+            </li>
+            <li>
+              <Link to="/holiday">Holiday</Link>
+            </li>
+            <li>
+              <Link to="/notifications">Notifications</Link>
+            </li>
+          </ul>
+        </nav>
+        <Routes>
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/" element={<Login />} />
+          <Route path="/holiday" element={<RequestHoliday />} />
+          <Route path="/notifications" element={<HolidayNotification />} />
+        </Routes>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;

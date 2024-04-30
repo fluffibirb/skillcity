@@ -1,0 +1,41 @@
+.accept-button {
+  background-color: rgb(198, 14, 14);
+  width: auto;
+  padding: 10px 50px;
+  border-radius: 30px;
+}
+
+.accept-button:hover {
+  background-color: rgb(168, 14, 14);
+}
+
+.reject-button {
+  background-color: rgb(42, 177, 24);
+  padding: 10px 50px;
+  border-radius: 30px;
+}
+
+.reject-button:hover {
+  background-color: rgb(28, 146, 12);
+}
+
+.holiday-decision {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.status {
+  display: flex;
+  justify-content: flex-end;
+}
+.status p {
+  background-color: rgb(234, 234, 234);
+  padding: 10px 40px;
+  margin-left: auto;
+  border-radius: 100px;
+}
+
+.request-button {
+  text-align: center;
+  padding: 20px;
+}
