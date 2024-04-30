@@ -1,6 +1,5 @@
 import "./Login.css";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 const Login = (props) => {
   const [email, setEmail] = useState("");
@@ -9,7 +8,7 @@ const Login = (props) => {
   const [passwordError, setPasswordError] = useState("");
   const [showPasswordError, setShowPasswordError] = useState(false);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const validateEmail = (email) => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -46,6 +45,7 @@ const Login = (props) => {
     // Proceed with login logic
     // You'll update this function later...
   };
+
 
   return (
     <div className={"mainContainer"}>

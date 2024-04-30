@@ -1,4 +1,5 @@
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Login from "./pages/Login/Login";
@@ -7,12 +8,10 @@ import HolidayNotification from "./pages/Holiday/HolidayNotification";
 import RequestHoliday from "./pages/Holiday/RequestHoliday";
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-// Define your main App component
 const App = () => {
   return (
     <Router>
       <div>
-        {/* Navigation */}
         <nav>
           <ul>
             <li>

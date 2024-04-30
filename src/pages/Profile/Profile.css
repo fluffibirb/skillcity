@@ -54,6 +54,15 @@ body{
 body{
   background: #f7f7ff;
   margin-top:20px;
+
+button {
+  padding: 10px 50px;
+  align-items: center;
+  background-color: #380258;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 .card {
   position: relative;
