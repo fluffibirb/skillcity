@@ -6,6 +6,7 @@ import Login from "./pages/Login/Login";
 import Profile from "./pages/Profile/Profile";
 import HolidayNotification from "./pages/Holiday/HolidayNotification";
 import RequestHoliday from "./pages/Holiday/RequestHoliday";
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 const App = () => {
   return (
