@@ -54,11 +54,12 @@ body{
 body{
   background: #f7f7ff;
   margin-top:20px;
+}
 
 button {
   padding: 10px 50px;
   align-items: center;
-  background-color: #380258;
+  background-color: #000000;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -94,4 +95,8 @@ button {
 .round-right {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+}
+
+.bg-purple {
+  background-color: #000000;
 }

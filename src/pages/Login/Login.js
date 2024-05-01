@@ -1,5 +1,7 @@
-import "./Login.css";
 import React, { useState } from "react";
+import logo from "../../Logo.png"; // Import the logo image
+
+import "./Login.css";
 
 const Login = (props) => {
   const [email, setEmail] = useState("");
@@ -46,11 +48,13 @@ const Login = (props) => {
     // You'll update this function later...
   };
 
-
   return (
     <div className={"mainContainer"}>
       <div className={"titleContainer"}>
-        <div>Login</div>
+      <img src={logo} alt="Logo" />
+        <div>Welcome to Northrop Grumman </div>
+        <div>Please Login Below</div>
+         
       </div>
       <br />
       <div className={"inputContainer"}>
