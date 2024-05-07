@@ -1,12 +1,12 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Login from "./pages/Login/Login";
 import Profile from "./pages/Profile/Profile";
 import HolidayNotification from "./pages/Holiday/HolidayNotification";
 import RequestHoliday from "./pages/Holiday/RequestHoliday";
-import 'bootstrap/dist/css/bootstrap.min.css'
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {
   return (
