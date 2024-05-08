@@ -23,8 +23,6 @@ const Login = ({ onLogin }) => {
 
   const validatePassword = (password) => {
     const passwordPattern =
-      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
-    const passwordPattern =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return passwordPattern.test(password);
   };
@@ -106,7 +104,6 @@ const Login = ({ onLogin }) => {
       <br />
       <div className={"inputContainer"}>
         <input
-          type="password"
           type="password"
           value={password}
           placeholder="Enter your password here"
