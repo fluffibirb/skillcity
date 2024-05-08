@@ -1,14 +1,20 @@
-import "./Login.css";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import logo from "../../Logo.png";
+import "./Login.css";
+import axios from "axios";
+import SERVER_URL from "./config.js";
 
-const Login = (props) => {
+const Login = ({ onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [showPasswordError, setShowPasswordError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loginError, setLoginError] = useState("");
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const validateEmail = (email) => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -17,11 +23,13 @@ const Login = (props) => {
 
   const validatePassword = (password) => {
     const passwordPattern =
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
+    const passwordPattern =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return passwordPattern.test(password);
   };
 
-  const onButtonClick = () => {
+  const handleLogin = async () => {
     if (email.trim() === "") {
       setEmailError("Please enter your email");
       return;
@@ -29,7 +37,7 @@ const Login = (props) => {
       setEmailError("Invalid email format");
       return;
     }
-    setEmailError(""); // Clear previous error
+    setEmailError("");
 
     if (password.trim() === "") {
       setPasswordError("Please enter your password");
@@ -42,17 +50,48 @@ const Login = (props) => {
       setShowPasswordError(true);
       return;
     }
-    setPasswordError(""); // Clear previous error
-    setShowPasswordError(false); // Hide password error tooltip
+    setPasswordError("");
+    setShowPasswordError(false);
 
-    // Proceed with login logic
-    // You'll update this function later...
+    try {
+      setIsLoading(true);
+      setLoginError("");
+
+      console.log("Attempting login with:", { email, password });
+
+      // Make an API request to authenticate the user
+      const response = await axios.post(`${SERVER_URL}/api/login`, {
+        email,
+        password,
+      });
+
+      console.log("Login response:", response.data);
+
+      // Handle successful login
+      if (response.data.message === "Login successful") {
+        // Call the onLogin function to update the App component's state
+        onLogin();
+        // Navigate to profile page
+        navigate("/profile");
+      } else {
+        // Handle unsuccessful login
+        setLoginError(response.data.message || "Invalid credentials!");
+      }
+    } catch (error) {
+      // Handle login error
+      console.error("Login error:", error);
+      setLoginError("Invalid credentials!");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <div className={"mainContainer"}>
       <div className={"titleContainer"}>
-        <div>Login here</div>
+        <img src={logo} alt="Logo" />
+        <div>Welcome to Northrop Grumman </div>
+        <div>Please Login Below</div>
       </div>
       <br />
       <div className={"inputContainer"}>
@@ -68,6 +107,7 @@ const Login = (props) => {
       <div className={"inputContainer"}>
         <input
           type="password"
+          type="password"
           value={password}
           placeholder="Enter your password here"
           onChange={(ev) => setPassword(ev.target.value)}
@@ -82,12 +122,10 @@ const Login = (props) => {
       </div>
       <br />
       <div className={"inputContainer"}>
-        <input
-          className={"button"}
-          type="button"
-          onClick={onButtonClick}
-          value={"Log in"}
-        />
+        <button className={"button"} onClick={handleLogin} disabled={isLoading}>
+          {isLoading ? "Loading..." : "Log in"}
+        </button>
+        {loginError && <div className="loginError">{loginError}</div>}
       </div>
     </div>
   );

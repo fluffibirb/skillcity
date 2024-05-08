@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Slider from "rc-slider";
+import "rc-slider/assets/index.css";
 import "./Profile.css";
 
 const Profile = () => {
@@ -16,18 +17,69 @@ const Profile = () => {
   const [instagram, setInstagram] = useState("bootdey");
   const [facebook, setFacebook] = useState("bootdey");
   const [htmlProgress, setHtmlProgress] = useState(70);
+  const [htmlLabel, setHtmlLabel] = useState("HTML");
   const [cssProgress, setCssProgress] = useState(75);
+  const [cssLabel, setCssLabel] = useState("CSS");
   const [jsProgress, setJsProgress] = useState(65);
+  const [jsLabel, setJsLabel] = useState("JavaScript");
   const [sqlProgress, setSqlProgress] = useState(80);
+  const [sqlLabel, setSqlLabel] = useState("SQL");
   const [pythonProgress, setPythonProgress] = useState(95);
+  const [pythonLabel, setPythonLabel] = useState("Python");
   const [webDesignProgress, setWebDesignProgress] = useState(80);
+  const [webDesignLabel, setWebDesignLabel] = useState("Web Design");
   const [websiteMarkupProgress, setWebsiteMarkupProgress] = useState(72);
+  const [websiteMarkupLabel, setWebsiteMarkupLabel] =
+    useState("Website Markup");
   const [webPagesProgress, setWebPagesProgress] = useState(89);
+  const [webPagesLabel, setWebPagesLabel] = useState("Web Pages");
   const [mobileTemplateProgress, setMobileTemplateProgress] = useState(55);
+  const [mobileTemplateLabel, setMobileTemplateLabel] =
+    useState("Mobile Template");
   const [backendApiProgress, setBackendApiProgress] = useState(66);
+  const [backendApiLabel, setBackendApiLabel] = useState("Backend API");
 
   const toggleEditMode = () => {
     setEditMode(!editMode);
+  };
+
+  const handleExitEditMode = () => {
+    const allFieldsFilled =
+      fullName !== "" &&
+      email !== "" &&
+      phone !== "" &&
+      mobile !== "" &&
+      address !== "" &&
+      jobTitle !== "" &&
+      website !== "" &&
+      github !== "" &&
+      twitter !== "" &&
+      instagram !== "" &&
+      facebook !== "";
+
+    if (allFieldsFilled) {
+      // Exit edit mode and perform any other necessary actions
+      setEditMode(false);
+    } else {
+      // Show an error message or highlight the empty fields
+      alert("Please fill in all the required fields.");
+    }
+  };
+
+  const handleSave = () => {
+    // Save changes
+    // Call handleExitEditMode function
+    handleExitEditMode();
+  };
+
+  const addProfile = () => {
+    // Add your custom logic for adding a profile here
+    console.log("Add Profile button clicked");
+  };
+
+  const deleteProfile = () => {
+    // Add your custom logic for deleting a profile here
+    console.log("Delete Profile button clicked");
   };
 
   return (
@@ -56,8 +108,32 @@ const Profile = () => {
                     ) : (
                       <h4>{fullName}</h4>
                     )}
-                    <p className="text-secondary mb-1">{jobTitle}</p>
-                    <p className="text-muted font-size-sm">{address}</p>
+                    <p className="text-secondary mb-1">
+                      {editMode ? (
+                        <input
+                          type="text"
+                          className="form-control mb-2"
+                          value={jobTitle}
+                          onChange={(e) => setJobTitle(e.target.value)}
+                          required
+                        />
+                      ) : (
+                        jobTitle
+                      )}
+                    </p>
+                    <p className="text-secondary mb-1">
+                      {editMode ? (
+                        <input
+                          type="text"
+                          className="form-control mb-2"
+                          value={address}
+                          onChange={(e) => setAddress(e.target.value)}
+                          required
+                        />
+                      ) : (
+                        address
+                      )}
+                    </p>
                     <div
                       style={{
                         marginBottom: "10px",
@@ -70,7 +146,7 @@ const Profile = () => {
                         style={{
                           padding: "7px 15px",
                           textAlign: "center",
-                          backgroundColor: "#380258",
+                          backgroundColor: "#000000",
                           color: "#fff",
                           border: "none",
                           borderRadius: "5px",
@@ -84,7 +160,7 @@ const Profile = () => {
                         style={{
                           padding: "7px 9px",
                           textAlign: "center",
-                          backgroundColor: "#380258",
+                          backgroundColor: "#000000",
                           color: "#fff",
                           border: "none",
                           borderRadius: "5px",
@@ -128,6 +204,7 @@ const Profile = () => {
                         className="form-control"
                         value={website}
                         onChange={(e) => setWebsite(e.target.value)}
+                        required
                       />
                     ) : (
                       <span className="text-secondary">{website}</span>
@@ -159,6 +236,7 @@ const Profile = () => {
                         className="form-control"
                         value={github}
                         onChange={(e) => setGithub(e.target.value)}
+                        required
                       />
                     ) : (
                       <span className="text-secondary">{github}</span>
@@ -190,6 +268,7 @@ const Profile = () => {
                         className="form-control"
                         value={twitter}
                         onChange={(e) => setTwitter(e.target.value)}
+                        required
                       />
                     ) : (
                       <span className="text-secondary">{twitter}</span>
@@ -230,6 +309,7 @@ const Profile = () => {
                         className="form-control"
                         value={instagram}
                         onChange={(e) => setInstagram(e.target.value)}
+                        required
                       />
                     ) : (
                       <span className="text-secondary">{instagram}</span>
@@ -261,6 +341,7 @@ const Profile = () => {
                         className="form-control"
                         value={facebook}
                         onChange={(e) => setFacebook(e.target.value)}
+                        required
                       />
                     ) : (
                       <span className="text-secondary">{facebook}</span>
@@ -270,6 +351,7 @@ const Profile = () => {
               </ul>
             </div>
           </div>
+
           <div className="col-md-8">
             <div className="card mb-3">
               <div className="card-body">
@@ -284,6 +366,7 @@ const Profile = () => {
                         className="form-control"
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
+                        required
                       />
                     ) : (
                       <span>{fullName}</span>
@@ -302,6 +385,7 @@ const Profile = () => {
                         className="form-control"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        required
                       />
                     ) : (
                       <span>{email}</span>
@@ -320,6 +404,7 @@ const Profile = () => {
                         className="form-control"
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
+                        required
                       />
                     ) : (
                       <span>{phone}</span>
@@ -338,6 +423,7 @@ const Profile = () => {
                         className="form-control"
                         value={mobile}
                         onChange={(e) => setMobile(e.target.value)}
+                        required
                       />
                     ) : (
                       <span>{mobile}</span>
@@ -356,6 +442,7 @@ const Profile = () => {
                         className="form-control"
                         value={address}
                         onChange={(e) => setAddress(e.target.value)}
+                        required
                       />
                     ) : (
                       <span>{address}</span>
@@ -363,284 +450,669 @@ const Profile = () => {
                   </div>
                 </div>
                 <hr />
-                <div className="row">
+
+                <div className="row mt-3">
                   <div className="col-sm-12">
-                    {editMode ? (
+                    <div className="d-flex justify-content-between">
                       <button
                         className="btn btn-primary px-4"
                         style={{
-                          padding: "7px 50px",
-                          textAlign: "center",
-                          backgroundColor: "#380258",
+                          backgroundColor: "#000000",
                           color: "#fff",
                           border: "none",
                           borderRadius: "5px",
                           cursor: "pointer",
+                          marginRight: "auto", // Pushes the button to the far left
+                          marginBottom: "20px",
                         }}
-                        onClick={toggleEditMode}
+                        onClick={addProfile}
                       >
-                        <i className="fas fa-save"></i> Save
+                        Add Profile
                       </button>
-                    ) : (
+                      {editMode ? (
+                        <button
+                          className="btn btn-primary px-4"
+                          style={{
+                            backgroundColor: "#000000",
+                            color: "#fff",
+                            border: "none",
+                            borderRadius: "5px",
+                            cursor: "pointer",
+                            margin: "0 auto", // Centers the button
+                            marginBottom: "20px",
+                          }}
+                          onClick={handleSave}
+                        >
+                          Save
+                        </button>
+                      ) : (
+                        <button
+                          className="btn btn-primary px-4"
+                          style={{
+                            backgroundColor: "#000000",
+                            color: "#fff",
+                            border: "none",
+                            borderRadius: "5px",
+                            cursor: "pointer",
+                            margin: "0 auto", // Centers the button
+                            marginBottom: "20px",
+                          }}
+                          onClick={toggleEditMode}
+                        >
+                          Edit Profile
+                        </button>
+                      )}
                       <button
                         className="btn btn-primary px-4"
                         style={{
-                          padding: "7px 50px",
-                          textAlign: "center",
-                          backgroundColor: "#380258",
+                          backgroundColor: "#000000",
                           color: "#fff",
                           border: "none",
                           borderRadius: "5px",
                           cursor: "pointer",
+                          marginLeft: "auto", // Pushes the button to the far right
+                          marginBottom: "20px",
                         }}
-                        onClick={toggleEditMode}
+                        onClick={deleteProfile}
                       >
-                        <i className="fas fa-pencil-alt"></i> Edit Profile
+                        Delete Profile
                       </button>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-sm-12">
-                <div className="card">
-                  <div className="card-body">
-                    <h5 className="d-flex align-items-center mb-3">Skills</h5>
-                    <div className="text-secondary">
-                      <p>HTML</p>
-                      <div className="progress mb-3" style={{ height: "5px" }}>
-                        {editMode ? (
-                          <Slider
-                            value={htmlProgress}
-                            onChange={setHtmlProgress}
-                          />
-                        ) : (
-                          <div
-                            className="progress-bar"
-                            role="progressbar"
-                            style={{
-                              width: `${htmlProgress}%`,
-                              backgroundColor: "#380258",
-                            }}
-                            aria-valuenow={htmlProgress}
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                          ></div>
-                        )}
-                      </div>
-                      <p>CSS</p>
-                      <div className="progress mb-3" style={{ height: "5px" }}>
-                        {editMode ? (
-                          <Slider
-                            value={cssProgress}
-                            onChange={setCssProgress}
-                          />
-                        ) : (
-                          <div
-                            className="progress-bar"
-                            role="progressbar"
-                            style={{
-                              width: `${cssProgress}%`,
-                              backgroundColor: "#380258",
-                            }}
-                            aria-valuenow={cssProgress}
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                          ></div>
-                        )}
-                      </div>
-                      <p>JavaScript</p>
-                      <div className="progress mb-3" style={{ height: "5px" }}>
-                        {editMode ? (
-                          <Slider value={jsProgress} onChange={setJsProgress} />
-                        ) : (
-                          <div
-                            className="progress-bar"
-                            role="progressbar"
-                            style={{
-                              width: `${jsProgress}%`,
-                              backgroundColor: "#380258",
-                            }}
-                            aria-valuenow={jsProgress}
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                          ></div>
-                        )}
-                      </div>
-                      <p>SQL</p>
-                      <div className="progress mb-3" style={{ height: "5px" }}>
-                        {editMode ? (
-                          <Slider
-                            value={sqlProgress}
-                            onChange={setSqlProgress}
-                          />
-                        ) : (
-                          <div
-                            className="progress-bar"
-                            role="progressbar"
-                            style={{
-                              width: `${sqlProgress}%`,
-                              backgroundColor: "#380258",
-                            }}
-                            aria-valuenow={sqlProgress}
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                          ></div>
-                        )}{" "}
-                      </div>
-                      <p>Python</p>
-                      <div className="progress mb-3" style={{ height: "5px" }}>
-                        {editMode ? (
-                          <Slider
-                            value={pythonProgress}
-                            onChange={setPythonProgress}
-                          />
-                        ) : (
-                          <div
-                            className="progress-bar"
-                            role="progressbar"
-                            style={{
-                              width: `${pythonProgress}%`,
-                              backgroundColor: "#380258",
-                            }}
-                            aria-valuenow={pythonProgress}
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                          ></div>
-                        )}
-                      </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-sm-12">
-                  <div className="card">
-                    <div className="card-body">
-                      <h5 className="d-flex align-items-center mb-3">
-                        Project Status
-                      </h5>
-                      <div className="text-secondary">
-                        <p>Web Design</p>
-                        <div
-                          className="progress mb-3"
-                          style={{ height: "5px" }}
-                        >
-                          {editMode ? (
-                            <Slider
-                              value={webDesignProgress}
-                              onChange={setWebDesignProgress}
-                            />
-                          ) : (
-                            <div
-                              className="progress-bar"
-                              role="progressbar"
-                              style={{
-                                width: `${webDesignProgress}%`,
-                                backgroundColor: "#380258",
-                              }}
-                              aria-valuenow={webDesignProgress}
-                              aria-valuemin="0"
-                              aria-valuemax="100"
-                            ></div>
-                          )}
+
+                    <div className="row">
+                      <div className="col-sm-12">
+                        <div className="card">
+                          <div className="card-body">
+                            <h5 className="d-flex align-items-center mb-3">
+                              Skills
+                            </h5>
+                            <div className="text-secondary">
+                              <div className="mb-3">
+                                {editMode ? (
+                                  <input
+                                    type="text"
+                                    className="form-control mb-2"
+                                    value={htmlLabel}
+                                    onChange={(e) =>
+                                      setHtmlLabel(e.target.value)
+                                    }
+                                  />
+                                ) : (
+                                  <p>{htmlLabel}</p>
+                                )}
+                                <div
+                                  className="progress"
+                                  style={{ height: "20px" }}
+                                >
+                                  {editMode ? (
+                                    <Slider
+                                      className="custom-slider"
+                                      value={htmlProgress}
+                                      onChange={setHtmlProgress}
+                                      trackStyle={{
+                                        height: "20px",
+                                        backgroundColor: "#000000",
+                                        top: 0,
+                                        bottom: 0,
+                                        left: 0,
+                                        right: 0,
+                                      }}
+                                      handleStyle={{
+                                        height: "20px",
+                                        width: "20px",
+                                        marginTop: "-5px",
+                                        backgroundColor: "#000000",
+                                        border: "none",
+                                      }}
+                                      railStyle={{
+                                        height: "20px",
+                                        backgroundColor: "#e9ecef",
+                                        boxShadow: "none",
+                                      }}
+                                      style={{ width: "100%" }}
+                                    />
+                                  ) : (
+                                    <div
+                                      className="progress-bar bg-purple"
+                                      role="progressbar"
+                                      style={{ width: `${htmlProgress}%` }}
+                                      aria-valuenow={htmlProgress}
+                                      aria-valuemin="0"
+                                      aria-valuemax="100"
+                                    ></div>
+                                  )}
+                                </div>
+                              </div>
+
+                              <div className="mb-3">
+                                {editMode ? (
+                                  <input
+                                    type="text"
+                                    className="form-control mb-2"
+                                    value={cssLabel}
+                                    onChange={(e) =>
+                                      setCssLabel(e.target.value)
+                                    }
+                                  />
+                                ) : (
+                                  <p>{cssLabel}</p>
+                                )}
+                                <div
+                                  className="progress"
+                                  style={{ height: "20px" }}
+                                >
+                                  {editMode ? (
+                                    <Slider
+                                      className="custom-slider"
+                                      value={cssProgress}
+                                      onChange={setCssProgress}
+                                      trackStyle={{
+                                        height: "20px",
+                                        backgroundColor: "#000000",
+                                        top: 0,
+                                        bottom: 0,
+                                        left: 0,
+                                        right: 0,
+                                      }}
+                                      handleStyle={{
+                                        height: "20px",
+                                        width: "20px",
+                                        marginTop: "-5px",
+                                        backgroundColor: "#000000",
+                                        border: "none",
+                                      }}
+                                      railStyle={{
+                                        height: "20px",
+                                        backgroundColor: "#e9ecef",
+                                        boxShadow: "none",
+                                      }}
+                                      style={{ width: "100%" }}
+                                    />
+                                  ) : (
+                                    <div
+                                      className="progress-bar bg-purple"
+                                      role="progressbar"
+                                      style={{ width: `${cssProgress}%` }}
+                                      aria-valuenow={cssProgress}
+                                      aria-valuemin="0"
+                                      aria-valuemax="100"
+                                    ></div>
+                                  )}
+                                </div>
+                              </div>
+
+                              <div className="mb-3">
+                                {editMode ? (
+                                  <input
+                                    type="text"
+                                    className="form-control mb-2"
+                                    value={jsLabel}
+                                    onChange={(e) => setJsLabel(e.target.value)}
+                                  />
+                                ) : (
+                                  <p>{jsLabel}</p>
+                                )}
+                                <div
+                                  className="progress"
+                                  style={{ height: "20px" }}
+                                >
+                                  {editMode ? (
+                                    <Slider
+                                      className="custom-slider"
+                                      value={jsProgress}
+                                      onChange={setJsProgress}
+                                      trackStyle={{
+                                        height: "20px",
+                                        backgroundColor: "#000000",
+                                        top: 0,
+                                        bottom: 0,
+                                        left: 0,
+                                        right: 0,
+                                      }}
+                                      handleStyle={{
+                                        height: "20px",
+                                        width: "20px",
+                                        marginTop: "-5px",
+                                        backgroundColor: "#000000",
+                                        border: "none",
+                                      }}
+                                      railStyle={{
+                                        height: "20px",
+                                        backgroundColor: "#e9ecef",
+                                        boxShadow: "none",
+                                      }}
+                                      style={{ width: "100%" }}
+                                    />
+                                  ) : (
+                                    <div
+                                      className="progress-bar bg-purple"
+                                      role="progressbar"
+                                      style={{ width: `${jsProgress}%` }}
+                                      aria-valuenow={jsProgress}
+                                      aria-valuemin="0"
+                                      aria-valuemax="100"
+                                    ></div>
+                                  )}
+                                </div>
+                              </div>
+
+                              <div className="mb-3">
+                                {editMode ? (
+                                  <input
+                                    type="text"
+                                    className="form-control mb-2"
+                                    value={sqlLabel}
+                                    onChange={(e) =>
+                                      setSqlLabel(e.target.value)
+                                    }
+                                  />
+                                ) : (
+                                  <p>{sqlLabel}</p>
+                                )}
+                                <div
+                                  className="progress"
+                                  style={{ height: "20px" }}
+                                >
+                                  {editMode ? (
+                                    <Slider
+                                      className="custom-slider"
+                                      value={sqlProgress}
+                                      onChange={setSqlProgress}
+                                      trackStyle={{
+                                        height: "20px",
+                                        backgroundColor: "#000000",
+                                        top: 0,
+                                        bottom: 0,
+                                        left: 0,
+                                        right: 0,
+                                      }}
+                                      handleStyle={{
+                                        height: "20px",
+                                        width: "20px",
+                                        marginTop: "-5px",
+                                        backgroundColor: "#000000",
+                                        border: "none",
+                                      }}
+                                      railStyle={{
+                                        height: "20px",
+                                        backgroundColor: "#e9ecef",
+                                        boxShadow: "none",
+                                      }}
+                                      style={{ width: "100%" }}
+                                    />
+                                  ) : (
+                                    <div
+                                      className="progress-bar bg-purple"
+                                      role="progressbar"
+                                      style={{ width: `${sqlProgress}%` }}
+                                      aria-valuenow={sqlProgress}
+                                      aria-valuemin="0"
+                                      aria-valuemax="100"
+                                    ></div>
+                                  )}
+                                </div>
+                              </div>
+
+                              <div className="mb-3">
+                                {editMode ? (
+                                  <input
+                                    type="text"
+                                    className="form-control mb-2"
+                                    value={pythonLabel}
+                                    onChange={(e) =>
+                                      setPythonLabel(e.target.value)
+                                    }
+                                  />
+                                ) : (
+                                  <p>{pythonLabel}</p>
+                                )}
+                                <div
+                                  className="progress"
+                                  style={{ height: "20px" }}
+                                >
+                                  {editMode ? (
+                                    <Slider
+                                      className="custom-slider"
+                                      value={pythonProgress}
+                                      onChange={setPythonProgress}
+                                      trackStyle={{
+                                        height: "20px",
+                                        backgroundColor: "#000000",
+                                        top: 0,
+                                        bottom: 0,
+                                        left: 0,
+                                        right: 0,
+                                      }}
+                                      handleStyle={{
+                                        height: "20px",
+                                        width: "20px",
+                                        marginTop: "-5px",
+                                        backgroundColor: "#000000",
+                                        border: "none",
+                                      }}
+                                      railStyle={{
+                                        height: "20px",
+                                        backgroundColor: "#e9ecef",
+                                        boxShadow: "none",
+                                      }}
+                                      style={{ width: "100%" }}
+                                    />
+                                  ) : (
+                                    <div
+                                      className="progress-bar bg-purple"
+                                      role="progressbar"
+                                      style={{ width: `${pythonProgress}%` }}
+                                      aria-valuenow={pythonProgress}
+                                      aria-valuemin="0"
+                                      aria-valuemax="100"
+                                    ></div>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <p>Website Markup</p>
-                        <div
-                          className="progress mb-3"
-                          style={{ height: "5px" }}
-                        >
-                          {editMode ? (
-                            <Slider
-                              value={websiteMarkupProgress}
-                              onChange={setWebsiteMarkupProgress}
-                            />
-                          ) : (
-                            <div
-                              className="progress-bar"
-                              role="progressbar"
-                              style={{
-                                width: `${websiteMarkupProgress}%`,
-                                backgroundColor: "#380258",
-                              }}
-                              aria-valuenow={websiteMarkupProgress}
-                              aria-valuemin="0"
-                              aria-valuemax="100"
-                            ></div>
-                          )}
-                        </div>
-                        <p>Web Pages</p>
-                        <div
-                          className="progress mb-3"
-                          style={{ height: "5px" }}
-                        >
-                          {editMode ? (
-                            <Slider
-                              value={webPagesProgress}
-                              onChange={setWebPagesProgress}
-                            />
-                          ) : (
-                            <div
-                              className="progress-bar"
-                              role="progressbar"
-                              style={{
-                                width: `${webPagesProgress}%`,
-                                backgroundColor: "#380258",
-                              }}
-                              aria-valuenow={webPagesProgress}
-                              aria-valuemin="0"
-                              aria-valuemax="100"
-                            ></div>
-                          )}
-                        </div>
-                        <p>Mobile Template</p>
-                        <div
-                          className="progress mb-3"
-                          style={{ height: "5px" }}
-                        >
-                          {editMode ? (
-                            <Slider
-                              value={mobileTemplateProgress}
-                              onChange={setMobileTemplateProgress}
-                            />
-                          ) : (
-                            <div
-                              className="progress-bar"
-                              role="progressbar"
-                              style={{
-                                width: `${mobileTemplateProgress}%`,
-                                backgroundColor: "#380258",
-                              }}
-                              aria-valuenow={mobileTemplateProgress}
-                              aria-valuemin="0"
-                              aria-valuemax="100"
-                            ></div>
-                          )}
-                        </div>
-                        <p>Backend API</p>
-                        <div
-                          className="progress mb-3"
-                          style={{ height: "5px" }}
-                        >
-                          {editMode ? (
-                            <Slider
-                              value={backendApiProgress}
-                              onChange={setBackendApiProgress}
-                            />
-                          ) : (
-                            <div
-                              className="progress-bar"
-                              role="progressbar"
-                              style={{
-                                width: `${backendApiProgress}%`,
-                                backgroundColor: "#380258",
-                              }}
-                              aria-valuenow={backendApiProgress}
-                              aria-valuemin="0"
-                              aria-valuemax="100"
-                            ></div>
-                          )}
+                      </div>
+
+                      <div className="col-sm-12">
+                        <div className="card">
+                          <div className="card-body">
+                            <h5 className="d-flex align-items-center mb-3">
+                              Project Status
+                            </h5>
+                            <div className="text-secondary">
+                              <div className="mb-3">
+                                {editMode ? (
+                                  <input
+                                    type="text"
+                                    className="form-control mb-2"
+                                    value={webDesignLabel}
+                                    onChange={(e) =>
+                                      setWebDesignLabel(e.target.value)
+                                    }
+                                  />
+                                ) : (
+                                  <p>{webDesignLabel}</p>
+                                )}
+                                <div
+                                  className="progress"
+                                  style={{ height: "20px" }}
+                                >
+                                  {editMode ? (
+                                    <Slider
+                                      className="custom-slider"
+                                      value={webDesignProgress}
+                                      onChange={setWebDesignProgress}
+                                      trackStyle={{
+                                        height: "20px",
+                                        backgroundColor: "#000000",
+                                        top: 0,
+                                        bottom: 0,
+                                        left: 0,
+                                        right: 0,
+                                      }}
+                                      handleStyle={{
+                                        height: "20px",
+                                        width: "20px",
+                                        marginTop: "-5px",
+                                        backgroundColor: "#000000",
+                                        border: "none",
+                                      }}
+                                      railStyle={{
+                                        height: "20px",
+                                        backgroundColor: "#e9ecef",
+                                        boxShadow: "none",
+                                      }}
+                                      style={{ width: "100%" }}
+                                    />
+                                  ) : (
+                                    <div
+                                      className="progress-bar bg-purple"
+                                      role="progressbar"
+                                      style={{ width: `${webDesignProgress}%` }}
+                                      aria-valuenow={webDesignProgress}
+                                      aria-valuemin="0"
+                                      aria-valuemax="100"
+                                    ></div>
+                                  )}
+                                </div>
+                              </div>
+
+                              <div className="mb-3">
+                                {editMode ? (
+                                  <input
+                                    type="text"
+                                    className="form-control mb-2"
+                                    value={websiteMarkupLabel}
+                                    onChange={(e) =>
+                                      setWebsiteMarkupLabel(e.target.value)
+                                    }
+                                  />
+                                ) : (
+                                  <p>{websiteMarkupLabel}</p>
+                                )}
+                                <div
+                                  className="progress"
+                                  style={{ height: "20px" }}
+                                >
+                                  {editMode ? (
+                                    <Slider
+                                      className="custom-slider"
+                                      value={websiteMarkupProgress}
+                                      onChange={setWebsiteMarkupProgress}
+                                      trackStyle={{
+                                        height: "20px",
+                                        backgroundColor: "#000000",
+                                        top: 0,
+                                        bottom: 0,
+                                        left: 0,
+                                        right: 0,
+                                      }}
+                                      handleStyle={{
+                                        height: "20px",
+                                        width: "20px",
+                                        marginTop: "-5px",
+                                        backgroundColor: "#000000",
+                                        border: "none",
+                                      }}
+                                      railStyle={{
+                                        height: "20px",
+                                        backgroundColor: "#e9ecef",
+                                        boxShadow: "none",
+                                      }}
+                                      style={{ width: "100%" }}
+                                    />
+                                  ) : (
+                                    <div
+                                      className="progress-bar bg-purple"
+                                      role="progressbar"
+                                      style={{
+                                        width: `${websiteMarkupProgress}%`,
+                                      }}
+                                      aria-valuenow={websiteMarkupProgress}
+                                      aria-valuemin="0"
+                                      aria-valuemax="100"
+                                    ></div>
+                                  )}
+                                </div>
+                              </div>
+
+                              <div className="mb-3">
+                                {editMode ? (
+                                  <input
+                                    type="text"
+                                    className="form-control mb-2"
+                                    value={webPagesLabel}
+                                    onChange={(e) =>
+                                      setWebPagesLabel(e.target.value)
+                                    }
+                                  />
+                                ) : (
+                                  <p>{webPagesLabel}</p>
+                                )}
+                                <div
+                                  className="progress"
+                                  style={{ height: "20px" }}
+                                >
+                                  {editMode ? (
+                                    <Slider
+                                      className="custom-slider"
+                                      value={webPagesProgress}
+                                      onChange={setWebPagesProgress}
+                                      trackStyle={{
+                                        height: "20px",
+                                        backgroundColor: "#000000",
+                                        top: 0,
+                                        bottom: 0,
+                                        left: 0,
+                                        right: 0,
+                                      }}
+                                      handleStyle={{
+                                        height: "20px",
+                                        width: "20px",
+                                        marginTop: "-5px",
+                                        backgroundColor: "#000000",
+                                        border: "none",
+                                      }}
+                                      railStyle={{
+                                        height: "20px",
+                                        backgroundColor: "#e9ecef",
+                                        boxShadow: "none",
+                                      }}
+                                      style={{ width: "100%" }}
+                                    />
+                                  ) : (
+                                    <div
+                                      className="progress-bar bg-purple"
+                                      role="progressbar"
+                                      style={{ width: `${webPagesProgress}%` }}
+                                      aria-valuenow={webPagesProgress}
+                                      aria-valuemin="0"
+                                      aria-valuemax="100"
+                                    ></div>
+                                  )}
+                                </div>
+                              </div>
+
+                              <div className="mb-3">
+                                {editMode ? (
+                                  <input
+                                    type="text"
+                                    className="form-control mb-2"
+                                    value={mobileTemplateLabel}
+                                    onChange={(e) =>
+                                      setMobileTemplateLabel(e.target.value)
+                                    }
+                                  />
+                                ) : (
+                                  <p>{mobileTemplateLabel}</p>
+                                )}
+                                <div
+                                  className="progress"
+                                  style={{ height: "20px" }}
+                                >
+                                  {editMode ? (
+                                    <Slider
+                                      className="custom-slider"
+                                      value={mobileTemplateProgress}
+                                      onChange={setMobileTemplateProgress}
+                                      trackStyle={{
+                                        height: "20px",
+                                        backgroundColor: "#000000",
+                                        top: 0,
+                                        bottom: 0,
+                                        left: 0,
+                                        right: 0,
+                                      }}
+                                      handleStyle={{
+                                        height: "20px",
+                                        width: "20px",
+                                        marginTop: "-5px",
+                                        backgroundColor: "#000000",
+                                        border: "none",
+                                      }}
+                                      railStyle={{
+                                        height: "20px",
+                                        backgroundColor: "#e9ecef",
+                                        boxShadow: "none",
+                                      }}
+                                      style={{ width: "100%" }}
+                                    />
+                                  ) : (
+                                    <div
+                                      className="progress-bar bg-purple"
+                                      role="progressbar"
+                                      style={{
+                                        width: `${mobileTemplateProgress}%`,
+                                      }}
+                                      aria-valuenow={mobileTemplateProgress}
+                                      aria-valuemin="0"
+                                      aria-valuemax="100"
+                                    ></div>
+                                  )}
+                                </div>
+                              </div>
+
+                              <div className="mb-3">
+                                {editMode ? (
+                                  <input
+                                    type="text"
+                                    className="form-control mb-2"
+                                    value={backendApiLabel}
+                                    onChange={(e) =>
+                                      setBackendApiLabel(e.target.value)
+                                    }
+                                  />
+                                ) : (
+                                  <p>{backendApiLabel}</p>
+                                )}
+                                <div
+                                  className="progress"
+                                  style={{ height: "20px" }}
+                                >
+                                  {editMode ? (
+                                    <Slider
+                                      className="custom-slider"
+                                      value={backendApiProgress}
+                                      onChange={setBackendApiProgress}
+                                      trackStyle={{
+                                        height: "20px",
+                                        backgroundColor: "#000000",
+                                        top: 0,
+                                        bottom: 0,
+                                        left: 0,
+                                        right: 0,
+                                      }}
+                                      handleStyle={{
+                                        height: "20px",
+                                        width: "20px",
+                                        marginTop: "-5px",
+                                        backgroundColor: "#000000",
+                                        border: "none",
+                                      }}
+                                      railStyle={{
+                                        height: "20px",
+                                        backgroundColor: "#e9ecef",
+                                        boxShadow: "none",
+                                      }}
+                                      style={{ width: "100%" }}
+                                    />
+                                  ) : (
+                                    <div
+                                      className="progress-bar bg-purple"
+                                      role="progressbar"
+                                      style={{
+                                        width: `${backendApiProgress}%`,
+                                      }}
+                                      aria-valuenow={backendApiProgress}
+                                      aria-valuemin="0"
+                                      aria-valuemax="100"
+                                    ></div>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
