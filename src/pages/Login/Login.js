@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import logo from "../../Logo.png";
 import "./Login.css";
 import axios from "axios";
-import SERVER_URL from './config.js';
+import SERVER_URL from "./config.js";
 
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState("");
@@ -22,7 +22,10 @@ const Login = ({ onLogin }) => {
   };
 
   const validatePassword = (password) => {
-    const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
+    const passwordPattern =
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
+    const passwordPattern =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return passwordPattern.test(password);
   };
 
@@ -57,7 +60,10 @@ const Login = ({ onLogin }) => {
       console.log("Attempting login with:", { email, password });
 
       // Make an API request to authenticate the user
-      const response = await axios.post(`${SERVER_URL}/api/login`, { email, password });
+      const response = await axios.post(`${SERVER_URL}/api/login`, {
+        email,
+        password,
+      });
 
       console.log("Login response:", response.data);
 
@@ -101,6 +107,7 @@ const Login = ({ onLogin }) => {
       <div className={"inputContainer"}>
         <input
           type="password"
+          type="password"
           value={password}
           placeholder="Enter your password here"
           onChange={(ev) => setPassword(ev.target.value)}
@@ -108,8 +115,8 @@ const Login = ({ onLogin }) => {
         />
         {showPasswordError && (
           <div className="passwordError">
-            Password must be minimum 8 characters and contain 1 uppercase letter, 1 lowercase letter, 1 digit, and 1
-            special character.
+            Password must be minimum 8 characters and contain 1 uppercase
+            letter, 1 lowercase letter, 1 digit, and 1 special character.
           </div>
         )}
       </div>

@@ -38,3 +38,18 @@ nav ul li a {
 nav ul li a:hover {
   color: gray;
 }
+.total-row {
+  display: flex;
+}
+
+.button-padding {
+  padding: 0 10px;
+}
+
+.request-status {
+  display: flex;
+  justify-content: flex-end;
+  background-color: rgb(162, 161, 161);
+  border-radius: 25px;
+  padding: 4px 15px;
+}
