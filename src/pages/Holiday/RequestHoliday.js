@@ -8,12 +8,12 @@ const RequestHoliday = () => {
 
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
-  const [reason, setReason] = useState("");
   const [name, setName] = useState("");
   const [manager, setManager] = useState("");
   const [nameError, setNameError] = useState("");
   const [managerError, setManagerError] = useState("");
   const [dateError, setDateError] = useState("");
+  const [selectedReason, setSelectedReason] = useState(""); // Define selectedReason state here
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -45,19 +45,42 @@ const RequestHoliday = () => {
       setDateError("");
     }
 
-    console.log("Submitted:", { fromDate, toDate, reason });
+    // Prepare data for the API request
+    const requestData = {
+      holiday_start: fromDate,
+      holiday_end: toDate,
+      reason: selectedReason, // Use selectedReason here
+      employee_id: name,
+      manager_id: manager,
+    };
 
-    navigate(
-      `/holiday-notifications?fromDate=${fromDate}&toDate=${toDate}&reason=${reason}`
-    );
+    // Perform the API call to post data to the server
+    fetch("http://localhost:8081/holiday", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestData),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to submit holiday request");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Holiday request submitted successfully:", data);
+        navigate("/holiday-notifications");
+      })
+      .catch((error) => {
+        console.error("Error submitting holiday request:", error);
+        // Handle error, if needed
+      });
   };
-
-  // State to store the selected reason
-  const [selectedReason, setSelectedReason] = useState("");
 
   // Function to handle change in the dropdown selection
   const handleReasonChange = (event) => {
-    setSelectedReason(event.target.value);
+    setSelectedReason(event.target.value); // Update selectedReason state here
   };
 
   return (
@@ -68,7 +91,8 @@ const RequestHoliday = () => {
           <div className="card">
             <div className="card-body">
               <form onSubmit={handleSubmit}>
-                <div className="form-group mb-3">
+                {/* Your form elements */}
+                <div className="form-group">
                   <label htmlFor="name">
                     <strong>Name:</strong>
                   </label>
@@ -78,12 +102,12 @@ const RequestHoliday = () => {
                     name="name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder=""
+                    placeholder="Enter your name"
                     className="form-control"
                   />
                   {nameError && <p style={{ color: "red" }}>{nameError}</p>}
                 </div>
-                <div className="form-group mb-3">
+                <div className="form-group">
                   <label htmlFor="manager">
                     <strong>Manager:</strong>
                   </label>
@@ -93,7 +117,7 @@ const RequestHoliday = () => {
                     name="manager"
                     value={manager}
                     onChange={(e) => setManager(e.target.value)}
-                    placeholder=""
+                    placeholder="Enter your manager's name"
                     className="form-control"
                   />
                   {managerError && (
@@ -101,10 +125,11 @@ const RequestHoliday = () => {
                   )}
                 </div>
                 <div className="form-group row">
-                  <div className="col-md-6">
+                  <div className="col">
                     <label htmlFor="fromDate" className="form-label">
                       <strong>From Date:</strong>
                     </label>
+                    <br />
                     <DatePicker
                       selected={fromDate}
                       onChange={(date) => setFromDate(date)}
@@ -114,10 +139,11 @@ const RequestHoliday = () => {
                       className="form-control"
                     />
                   </div>
-                  <div className="col-md-6 mb-3">
+                  <div className="col">
                     <label htmlFor="toDate" className="form-label">
                       <strong>To Date:</strong>
                     </label>
+                    <br />
                     <DatePicker
                       selected={toDate}
                       onChange={(date) => setToDate(date)}
@@ -126,8 +152,8 @@ const RequestHoliday = () => {
                       id="toDate"
                       className="form-control"
                     />
+                    {dateError && <p style={{ color: "red" }}>{dateError}</p>}
                   </div>
-                  {dateError && <p style={{ color: "red" }}>{dateError}</p>}
                 </div>
                 <div className="form-group">
                   <label htmlFor="reason" className="form-label">
