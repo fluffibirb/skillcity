@@ -40,10 +40,10 @@ const HolidayNotifications = () => {
     }
   };
 
-  // Function to handle rejection of a holiday request
-  const handleReject = (holidayId) => {
+  // Function to handle deletion of a holiday request
+  const handleDelete = (holidayId) => {
     const confirmed = window.confirm(
-      "Are you sure you want to reject this holiday request?"
+      "Are you sure you want to delete this holiday request?"
     );
     if (confirmed) {
       setHolidays((prevHolidays) =>
@@ -51,7 +51,12 @@ const HolidayNotifications = () => {
           (holiday) => holiday.holiday_request_id !== holidayId
         )
       );
-      // Here you can also add code to send a request to your backend to update the status to "declined"
+      fetch(`http://localhost:8081/holiday/${holidayId}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => console.log(data))
+        .catch((error) => console.error("Error deleting holiday:", error));
     }
   };
 
@@ -104,10 +109,10 @@ const HolidayNotifications = () => {
                     <span className="button-padding"></span>
                     <button
                       type="button"
-                      className="reject-button secondary-button"
-                      onClick={() => handleReject(holiday.holiday_request_id)}
+                      className="delete-button secondary-button"
+                      onClick={() => handleDelete(holiday.holiday_request_id)}
                     >
-                      Reject
+                      Delete
                     </button>
                   </div>
                 </div>

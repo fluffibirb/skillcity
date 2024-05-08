@@ -47,7 +47,9 @@ const Login = () => {
     setShowPasswordError(false); // Hide password error tooltip
 
     // Find user with matching email
-    const user = getLogin.find((user) => user.email === email);
+    const user = getLogin.find(
+      (user) => user.email.toLowerCase() === email.toLowerCase()
+    );
 
     if (!user) {
       setLoginError("User not found");
