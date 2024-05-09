@@ -1,4 +1,4 @@
-App {
+.App {
   text-align: center;
 }
 
@@ -11,23 +11,17 @@ ul {
 nav {
   background-color: black;
   color: white;
-  height: 40px; /* Set the desired height for the navbar */
 }
 
 nav ul {
   list-style-type: none;
   display: flex;
   justify-content: flex-end;
-  margin: 0;
-  padding: 0;
-  height: 100%; /* Make the ul take the full height of the nav */
+  padding: 13px;
 }
 
 nav ul li {
-  display: flex;
-  align-items: center; /* Vertically center the nav links */
   margin-right: 20px;
-  margin-top: 8px;
 }
 
 nav ul li a {
@@ -38,6 +32,7 @@ nav ul li a {
 nav ul li a:hover {
   color: gray;
 }
+
 .total-row {
   display: flex;
 }

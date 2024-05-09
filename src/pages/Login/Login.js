@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "../../Logo.png";
 import "./Login.css";
-import axios from "axios";
-import SERVER_URL from "./config.js";
 
-const Login = ({ onLogin }) => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [showPasswordError, setShowPasswordError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [loginError, setLoginError] = useState("");
 
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // React Router's useuseNavigate hook
 
   // Function to validate email format
   const validateEmail = (email) => {
@@ -28,8 +24,9 @@ const Login = ({ onLogin }) => {
     return passwordPattern.test(password);
   };
 
-
-  const handleLogin = async () => {
+  // Function to handle login button click
+  const onButtonClick = () => {
+    // Check if email is entered and valid
     if (email.trim() === "") {
       setEmailError("Please enter your email");
       return;
@@ -37,8 +34,7 @@ const Login = ({ onLogin }) => {
       setEmailError("Invalid email format");
       return;
     }
-
-    setEmailError("");
+    setEmailError(""); // Clear email error
 
     // Check if password is entered and valid
     if (password.trim() === "") {
@@ -48,41 +44,26 @@ const Login = ({ onLogin }) => {
       setShowPasswordError(true);
       return;
     }
+    setShowPasswordError(false); // Hide password error tooltip
 
-    setPasswordError("");
-    setShowPasswordError(false);
+    // Find user with matching email
+    const user = getLogin.find(
+      (user) => user.email.toLowerCase() === email.toLowerCase()
+    );
 
-    try {
-      setIsLoading(true);
-      setLoginError("");
-
-      console.log("Attempting login with:", { email, password });
-
-      // Make an API request to authenticate the user
-      const response = await axios.post(`${SERVER_URL}/api/login`, {
-        email,
-        password,
-      });
-
-      console.log("Login response:", response.data);
-
-      // Handle successful login
-      if (response.data.message === "Login successful") {
-        // Call the onLogin function to update the App component's state
-        onLogin();
-        // Navigate to profile page
-        navigate("/profile");
-      } else {
-        // Handle unsuccessful login
-        setLoginError(response.data.message || "Invalid credentials!");
-      }
-    } catch (error) {
-      // Handle login error
-      console.error("Login error:", error);
-      setLoginError("Invalid credentials!");
-    } finally {
-      setIsLoading(false);
+    if (!user) {
+      setLoginError("User not found");
+      return;
     }
+
+    // Check if password matches
+    if (user.password !== password) {
+      setLoginError("Incorrect password");
+      return;
+    }
+
+    // Password matches, proceed with successful login
+    navigate("/profile"); // Redirect to profile page
   };
 
   // State to store login data fetched from backend
@@ -97,13 +78,8 @@ const Login = ({ onLogin }) => {
   }, []);
 
   return (
-
-    <div className={"mainContainer"}>
-      <div className={"titleContainer"}>
-        <img src={logo} alt="Logo" />
-        <div>Welcome to Northrop Grumman </div>
-        <div>Please Login Below</div>
-      </div>
+    <div className="mainContainer">
+      <div className="titleContainer">Login here</div>
       <br />
       <div className="inputContainer">
         <input
@@ -131,12 +107,13 @@ const Login = ({ onLogin }) => {
         )}
       </div>
       <br />
-
-      <div className={"inputContainer"}>
-        <button className={"button"} onClick={handleLogin} disabled={isLoading}>
-          {isLoading ? "Loading..." : "Log in"}
-        </button>
-        {loginError && <div className="loginError">{loginError}</div>}
+      <div className="inputContainer">
+        <input
+          className="button"
+          type="button"
+          onClick={onButtonClick}
+          value="Log in"
+        />
       </div>
       {loginError && <div className="loginError">{loginError}</div>}
     </div>
