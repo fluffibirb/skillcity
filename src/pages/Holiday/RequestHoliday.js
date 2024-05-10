@@ -50,8 +50,8 @@ const RequestHoliday = () => {
       holiday_start: fromDate,
       holiday_end: toDate,
       reason: selectedReason, // Use selectedReason here
-      employee_id: name,
-      manager_id: manager,
+      requestor_name: name,
+      manager_name: manager,
     };
 
     // Perform the API call to post data to the server
@@ -70,7 +70,7 @@ const RequestHoliday = () => {
       })
       .then((data) => {
         console.log("Holiday request submitted successfully:", data);
-        navigate("/holiday-notifications");
+        navigate("/history");
       })
       .catch((error) => {
         console.error("Error submitting holiday request:", error);
@@ -166,7 +166,7 @@ const RequestHoliday = () => {
                     className="form-control"
                   >
                     <option value="">Select a reason</option>
-                    <option value="Vacation">Vacation</option>
+                    <option value="Annual Leave">Annual Leave</option>
                     <option value="Sick Leave">Sick Leave</option>
                     <option value="Personal Leave">Personal Leave</option>
                   </select>
