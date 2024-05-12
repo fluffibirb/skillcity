@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Slider from "rc-slider";
 import "./Profile.css";
 
@@ -27,8 +27,64 @@ const Profile = () => {
   const [backendApiProgress, setBackendApiProgress] = useState(66);
 
   const toggleEditMode = () => {
-    setEditMode(!editMode);
+    if (editMode) {
+      // If edit mode is true, send updated data to the server
+      fetch(`http://localhost:8081/users/${getUsers.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          fullName,
+          jobTitle,
+          address,
+          email,
+          phone,
+          mobile,
+          website,
+          github,
+          twitter,
+          instagram,
+          facebook,
+          htmlProgress,
+          cssProgress,
+          jsProgress,
+          sqlProgress,
+          pythonProgress,
+          webDesignProgress,
+          websiteMarkupProgress,
+          webPagesProgress,
+          mobileTemplateProgress,
+          backendApiProgress,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          // Log the response or handle it as needed
+          console.log("Profile updated successfully:", data);
+          // Toggle edit mode
+          setEditMode(!editMode);
+        })
+        .catch((error) => {
+          console.error("Error updating profile:", error);
+          // Optionally handle errors
+        });
+    } else {
+      // If edit mode is false, simply toggle it
+      setEditMode(!editMode);
+    }
   };
+
+  const [getUsers, setGetUsers] = useState([]);
+
+  useEffect(() => {
+    fetch(`http://localhost:8081/users`)
+      .then((res) => res.json())
+      .then((data) => setGetUsers(data[0]))
+      .then((err) => console.log(err));
+  }, []);
+
+  console.log("getUsers: ", getUsers);
 
   return (
     <div className="container">
@@ -54,10 +110,14 @@ const Profile = () => {
                         onChange={(e) => setFullName(e.target.value)}
                       />
                     ) : (
-                      <h4>{fullName}</h4>
+                      <h4>
+                        {getUsers.first_name} {getUsers.surname}
+                      </h4>
                     )}
-                    <p className="text-secondary mb-1">{jobTitle}</p>
-                    <p className="text-muted font-size-sm">{address}</p>
+                    <p className="text-secondary mb-1">{getUsers.job_title}</p>
+                    <p className="text-secondary mb-1">
+                      Department: {getUsers.department}
+                    </p>
                     <div
                       style={{
                         marginBottom: "10px",
@@ -282,11 +342,13 @@ const Profile = () => {
                       <input
                         type="text"
                         className="form-control"
-                        value={fullName}
+                        value={getUsers.first_name + " " + getUsers.surname}
                         onChange={(e) => setFullName(e.target.value)}
                       />
                     ) : (
-                      <span>{fullName}</span>
+                      <span>
+                        {getUsers.first_name + " " + getUsers.surname}
+                      </span>
                     )}
                   </div>
                 </div>
@@ -300,11 +362,11 @@ const Profile = () => {
                       <input
                         type="text"
                         className="form-control"
-                        value={email}
+                        value={getUsers.email}
                         onChange={(e) => setEmail(e.target.value)}
                       />
                     ) : (
-                      <span>{email}</span>
+                      <span>{getUsers.email}</span>
                     )}
                   </div>
                 </div>
@@ -318,11 +380,11 @@ const Profile = () => {
                       <input
                         type="text"
                         className="form-control"
-                        value={phone}
+                        value={getUsers.phone}
                         onChange={(e) => setPhone(e.target.value)}
                       />
                     ) : (
-                      <span>{phone}</span>
+                      <span>{getUsers.phone}</span>
                     )}
                   </div>
                 </div>
@@ -336,11 +398,11 @@ const Profile = () => {
                       <input
                         type="text"
                         className="form-control"
-                        value={mobile}
+                        value={getUsers.mobile}
                         onChange={(e) => setMobile(e.target.value)}
                       />
                     ) : (
-                      <span>{mobile}</span>
+                      <span>{getUsers.mobile}</span>
                     )}
                   </div>
                 </div>
@@ -354,11 +416,11 @@ const Profile = () => {
                       <input
                         type="text"
                         className="form-control"
-                        value={address}
+                        value={getUsers.address}
                         onChange={(e) => setAddress(e.target.value)}
                       />
                     ) : (
-                      <span>{address}</span>
+                      <span>{getUsers.address}</span>
                     )}
                   </div>
                 </div>
