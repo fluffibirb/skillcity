@@ -40,7 +40,7 @@ const HolidayNotifications = () => {
       "Are you sure you want to approve this holiday request?"
     );
     if (confirmed) {
-      fetch(`http://localhost:8081/holiday/${holidayId}`, {
+      fetch(`http://localhost:8081/holiday/${holidayId}/approve`, {
         method: "PUT",
       })
         .then((res) => res.json())
@@ -71,7 +71,7 @@ const HolidayNotifications = () => {
         )
       );
       fetch(`http://localhost:8081/holiday/${holidayId}`, {
-        method: "DELETE",
+        method: "PUT",
       })
         .then((res) => res.json())
         .then((data) => console.log(data))
@@ -87,26 +87,22 @@ const HolidayNotifications = () => {
           {holidays.length === 0 ? (
             <p>No holiday notifications</p>
           ) : (
-            holidays
-              .slice()
-              .reverse()
-              .map((holiday) => (
+            holidays.map((holiday) =>
+              holiday.isApproved > 0 ? null : (
                 <div className="card" key={holiday.holiday_request_id}>
                   <div className="card-body">
                     <div className="status">
-                      <p>
-                        <strong>Request Status: </strong>
-                        {holiday.status}
-                      </p>
+                      {/* <p>
+                          <strong>Request Status: </strong>
+                          {holiday.status}
+                        </p> */}
                     </div>
 
                     <p>
                       <strong>Name: </strong>
                       {holiday.requestor_name}
                     </p>
-                    {/* <p>
-                      <strong>Manager: {holiday.manager_name}</strong>
-                    </p> */}
+                    {/* <p>{holiday.isApproved}</p> */}
                     <p>
                       <strong>From Date:</strong>{" "}
                       {formatDate(holiday.holiday_start)}
@@ -146,7 +142,8 @@ const HolidayNotifications = () => {
                     </div>
                   </div>
                 </div>
-              ))
+              )
+            )
           )}
         </div>
       </div>

@@ -36,6 +36,28 @@ const HistoryNotifications = () => {
     return count;
   };
 
+  // Function to get the request status
+  const getRequestStatus = (isApproved) => {
+    if (isApproved === 1) {
+      return "Approved";
+    } else if (isApproved === 2) {
+      return "Declined";
+    } else {
+      return "Pending";
+    }
+  };
+
+  // Function to get the CSS class based on the request status
+  const getStatusColor = (isApproved) => {
+    if (isApproved === 1) {
+      return "status-green";
+    } else if (isApproved === 2) {
+      return "status-red";
+    } else {
+      return "status-pending";
+    }
+  };
+
   return (
     <div className="container">
       <div className="row justify-content-center">
@@ -46,11 +68,13 @@ const HistoryNotifications = () => {
           ) : (
             holidays.map((holiday) => (
               <div className="card" key={holiday.holiday_request_id}>
-                <div className="card-body">
+                <div
+                  className={`card-body ${getStatusColor(holiday.isApproved)}`}
+                >
                   <div className="status">
                     <p>
                       <strong>Request Status: </strong>
-                      {holiday.status}
+                      {getRequestStatus(holiday.isApproved)}
                     </p>
                   </div>
 
